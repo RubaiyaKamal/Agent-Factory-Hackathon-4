@@ -1,0 +1,179 @@
+{
+  "chapter_id": 3,
+  "title": "MCP Servers - Quiz",
+  "description": "Test your understanding of the Model Context Protocol and tool integration",
+  "difficulty": "medium",
+  "passing_score": 70,
+  "max_attempts": 5,
+  "time_limit_minutes": 30,
+  "requires_premium": false,
+  "questions": [
+    {
+      "question_number": 1,
+      "question_text": "What does MCP stand for?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "Model Context Protocol"
+        ],
+        "explanation": "MCP stands for Model Context Protocol, an open standard that enables AI agents to connect with external data sources and tools."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 2,
+      "question_text": "What is the primary purpose of MCP?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "To train AI models",
+          "To enable AI agents to connect with external data sources and tools",
+          "To store conversation history",
+          "To encrypt API communications"
+        ],
+        "correct": "To enable AI agents to connect with external data sources and tools",
+        "explanation": "MCP acts as a universal adapter that lets AI agents interact with databases, APIs, file systems, and other external resources."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 3,
+      "question_text": "True or False: MCP Resources can only read from databases.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": false,
+        "explanation": "False. MCP Resources can read from various data sources including files (local and remote), database tables, API endpoints, and system information."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 4,
+      "question_text": "Which of the following is an MCP Tool (action) rather than a Resource (data source)?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "Database Table",
+          "File Contents",
+          "Execute Query",
+          "API Endpoint"
+        ],
+        "correct": "Execute Query",
+        "explanation": "Execute Query is a Tool (action) that performs operations. Resources like Database Tables, Files, and API Endpoints are data sources that agents can read from."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 15
+    },
+    {
+      "question_number": 5,
+      "question_text": "What decorator is used to register a function as an MCP tool in Python?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "@server.tool()",
+          "@server.tool",
+          "server.tool"
+        ],
+        "regex": "@?server\\.tool\\(\\)?",
+        "explanation": "The @server.tool() decorator is used to register Python functions as MCP tools that agents can invoke."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 15
+    },
+    {
+      "question_number": 6,
+      "question_text": "True or False: MCP servers must be written in Python.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": false,
+        "explanation": "False. MCP is a protocol standard that can be implemented in any programming language. The chapter mentions both Python and Node.js implementations."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 7,
+      "question_text": "In the tool use workflow, what step comes after Claude identifies which tool to use?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "Claude synthesizes the answer",
+          "The agent calls the tool via MCP",
+          "The user asks another question",
+          "The tool automatically executes"
+        ],
+        "correct": "The agent calls the tool via MCP",
+        "explanation": "After Claude identifies the needed tool, the agent calls it via MCP, receives the results, and then Claude synthesizes the final answer."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 8,
+      "question_text": "Why is it important to write clear tool descriptions?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "so Claude knows when to use the tool",
+          "to help Claude understand the tool's purpose",
+          "for proper tool selection",
+          "to guide the AI in tool usage"
+        ],
+        "regex": "(Claude|AI|agent).*(understand|know|select|use)",
+        "explanation": "Clear tool descriptions help Claude understand the tool's purpose and when to use it, leading to better tool selection and usage."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 15
+    },
+    {
+      "question_number": 9,
+      "question_text": "Which SQL keywords should be prevented in a read-only database MCP server for security?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "SELECT and WHERE",
+          "JOIN and GROUP BY",
+          "DROP, DELETE, and UPDATE",
+          "LIMIT and OFFSET"
+        ],
+        "correct": "DROP, DELETE, and UPDATE",
+        "explanation": "For security, read-only database servers should prevent modifying queries like DROP, DELETE, and UPDATE, allowing only SELECT queries."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 10,
+      "question_text": "True or False: Multiple MCP servers can be combined to give an agent access to different capabilities.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": true,
+        "explanation": "True. Agents can use multiple MCP servers simultaneously, combining their tools to access various capabilities like filesystem operations, database queries, and web searches."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    }
+  ]
+}

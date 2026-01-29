@@ -1,0 +1,176 @@
+{
+  "chapter_id": 2,
+  "title": "Claude SDK Basics - Quiz",
+  "description": "Test your knowledge of the Claude SDK and API usage",
+  "difficulty": "medium",
+  "passing_score": 70,
+  "max_attempts": 5,
+  "time_limit_minutes": 25,
+  "requires_premium": false,
+  "questions": [
+    {
+      "question_number": 1,
+      "question_text": "What is the maximum context window size for Claude?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "32K tokens",
+          "100K tokens",
+          "200K tokens",
+          "1M tokens"
+        ],
+        "correct": "200K tokens",
+        "explanation": "Claude supports up to 200K tokens (approximately 150,000 words) in its context window, making it excellent for processing large documents."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 2,
+      "question_text": "True or False: System prompts are optional when using the Claude API.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": true,
+        "explanation": "True. System prompts are optional but recommended as they help set the agent's behavior and context for better responses."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 3,
+      "question_text": "Which parameter controls the randomness and creativity of Claude's responses?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": ["temperature"],
+        "explanation": "The temperature parameter controls randomness - lower values (e.g., 0.2) produce more deterministic responses, while higher values (e.g., 0.9) increase creativity."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 15
+    },
+    {
+      "question_number": 4,
+      "question_text": "What is the recommended temperature setting for factual, deterministic tasks?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "0.2 (low temperature)",
+          "0.5 (medium temperature)",
+          "0.9 (high temperature)",
+          "1.5 (very high temperature)"
+        ],
+        "correct": "0.2 (low temperature)",
+        "explanation": "Lower temperature values like 0.2 are recommended for factual tasks as they produce more deterministic and consistent responses."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 5,
+      "question_text": "In the Claude API, messages alternate between which two roles?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "user and assistant",
+          "assistant and user"
+        ],
+        "regex": "(user.*assistant|assistant.*user)",
+        "explanation": "The Claude API uses a message-based format where conversations consist of alternating 'user' and 'assistant' messages."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 15
+    },
+    {
+      "question_number": 6,
+      "question_text": "True or False: You should commit your API key to git for version control.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": false,
+        "explanation": "False! Never commit API keys to git. Always store them securely in environment variables or secret management systems."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 7,
+      "question_text": "Which error type should trigger an exponential backoff retry strategy?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "InvalidRequestError",
+          "RateLimitError",
+          "AuthenticationError",
+          "ValidationError"
+        ],
+        "correct": "RateLimitError",
+        "explanation": "RateLimitError should trigger exponential backoff retries, as the API is temporarily unavailable due to rate limits. Invalid requests should not be retried."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 8,
+      "question_text": "What is the purpose of streaming responses in the Claude API?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "real-time user experience",
+          "provide real-time feedback",
+          "show responses as they are generated",
+          "improve user experience"
+        ],
+        "regex": "(real.time|user experience|feedback|progressive)",
+        "explanation": "Streaming responses provide a better real-time user experience by displaying text as it's generated, rather than waiting for the complete response."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 15
+    },
+    {
+      "question_number": 9,
+      "question_text": "Approximately how many characters equal one token?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "1 character",
+          "2 characters",
+          "4 characters",
+          "10 characters"
+        ],
+        "correct": "4 characters",
+        "explanation": "A rough estimate is that 4 characters equal approximately 1 token. This is useful for estimating costs and context window usage."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 10,
+      "question_text": "True or False: The max_tokens parameter limits the length of the user's input.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": false,
+        "explanation": "False. The max_tokens parameter controls the maximum length of Claude's response, not the user's input."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    }
+  ]
+}

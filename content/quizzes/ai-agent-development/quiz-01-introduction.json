@@ -1,0 +1,184 @@
+{
+  "chapter_id": 1,
+  "title": "Introduction to AI Agents - Quiz",
+  "description": "Test your understanding of AI agent fundamentals",
+  "difficulty": "easy",
+  "passing_score": 70,
+  "max_attempts": 5,
+  "time_limit_minutes": 20,
+  "requires_premium": false,
+  "questions": [
+    {
+      "question_number": 1,
+      "question_text": "What is an AI agent?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "A software program that follows predetermined rules",
+          "A software program that can perceive its environment, make decisions, and take actions to achieve specific goals",
+          "A database management system",
+          "A web server"
+        ],
+        "correct": "A software program that can perceive its environment, make decisions, and take actions to achieve specific goals",
+        "explanation": "AI agents are autonomous programs that perceive their environment, make intelligent decisions, and take actions to achieve goals, unlike traditional software that only follows preset rules."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 2,
+      "question_text": "True or False: AI agents can only react to current input and have no memory.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": false,
+        "explanation": "False. While simple reflex agents may lack memory, most modern AI agents maintain context and history to provide better responses."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 3,
+      "question_text": "Which characteristic allows AI agents to take initiative and anticipate user needs?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "Autonomy",
+          "Reactivity",
+          "Pro-activeness",
+          "Social Ability"
+        ],
+        "correct": "Pro-activeness",
+        "explanation": "Pro-activeness allows agents to take initiative, anticipate needs, and suggest improvements rather than just reacting to input."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 4,
+      "question_text": "What are the core components of modern AI agents? (Name at least one)",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "Large Language Models",
+          "LLMs",
+          "Tools and APIs",
+          "Memory Systems",
+          "Planning and Reasoning"
+        ],
+        "explanation": "Modern AI agents are built on LLMs for intelligence, tools/APIs for actions, memory systems for context, and planning/reasoning for complex tasks."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 15
+    },
+    {
+      "question_number": 5,
+      "question_text": "Which type of AI agent maintains internal state and tracks conversation history?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "Simple Reflex Agents",
+          "Model-Based Agents",
+          "Goal-Based Agents",
+          "Utility-Based Agents"
+        ],
+        "correct": "Model-Based Agents",
+        "explanation": "Model-Based Agents maintain internal state and memory of past interactions, unlike Simple Reflex Agents which only respond to current input."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 6,
+      "question_text": "True or False: AI agents are used only in customer service applications.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": false,
+        "explanation": "False. AI agents are used across many industries including healthcare, e-commerce, education, finance, and software development."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 7,
+      "question_text": "What does 'Natural Language Processing' enable AI agents to do?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "understand user intent",
+          "understand and respond to natural language",
+          "process natural language",
+          "communicate using natural language"
+        ],
+        "regex": "(understand|process|communicate).*(language|intent|text)",
+        "explanation": "NLP (Natural Language Processing) enables agents to understand and respond to human language, making interactions more natural and intuitive."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 15
+    },
+    {
+      "question_number": 8,
+      "question_text": "In the agent architecture diagram, which layer is responsible for API calls and tool usage?",
+      "question_type": "multiple_choice",
+      "answer_config": {
+        "options": [
+          "User Interface",
+          "Natural Language Processing",
+          "Decision Engine",
+          "Action Layer"
+        ],
+        "correct": "Action Layer",
+        "explanation": "The Action Layer is responsible for executing actions through API calls, tool usage, and interactions with external systems."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 9,
+      "question_text": "True or False: Learning Agents can improve their performance over time.",
+      "question_type": "true_false",
+      "answer_config": {
+        "correct": true,
+        "explanation": "True. Learning Agents adapt and improve their performance based on experience and user feedback."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": false,
+      "points": 10
+    },
+    {
+      "question_number": 10,
+      "question_text": "What is one advantage AI agents offer over traditional applications?",
+      "question_type": "fill_in_blank",
+      "answer_config": {
+        "correct": [
+          "Natural Interaction",
+          "Contextual Understanding",
+          "Task Automation",
+          "Adaptive Behavior",
+          "24/7 Availability"
+        ],
+        "explanation": "AI agents offer several advantages including natural language interaction, contextual understanding, intelligent automation, adaptive learning, and continuous availability."
+      },
+      "case_sensitive": false,
+      "trim_whitespace": true,
+      "allow_partial": true,
+      "points": 10
+    }
+  ]
+}

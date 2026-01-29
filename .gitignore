@@ -279,19 +279,19 @@ r2-mock/
 # ==============================================================================
 # Custom Project Artifacts
 # ==============================================================================
-# Exclude uploaded course content (use R2 in production)
-content/courses/*
-!content/courses/.gitkeep
-!content/courses/README.md
+# Include course content for now (can exclude in production)
+# content/courses/*
+# !content/courses/.gitkeep
+# !content/courses/README.md
 
-# Exclude quiz banks (use R2 or database in production)
-content/quizzes/*
-!content/quizzes/.gitkeep
-!content/quizzes/README.md
+# Include quiz banks
+# content/quizzes/*
+# !content/quizzes/.gitkeep
+# !content/quizzes/README.md
 
-# Exclude assets (use R2 in production)
-content/assets/*
-!content/assets/.gitkeep
+# Include assets
+# content/assets/*
+# !content/assets/.gitkeep
 
 # ==============================================================================
 # Development & Debugging
