@@ -1,8 +1,15 @@
 module.exports = {
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
   images: {
-    domains: ['localhost', 'your-backend-domain.com'], // Add your actual domain
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'your-backend-domain.com',
+      },
+    ],
   },
 };
