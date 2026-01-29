@@ -15,9 +15,9 @@ export default function ProtectedRoute({ children, allowedRoles = [] }: Protecte
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/login');
+      router.push('/login' as any);
     } else if (user && allowedRoles.length > 0 && !allowedRoles.includes(user.tier)) {
-      router.push('/unauthorized'); // Redirect to unauthorized page if role is not allowed
+      router.push('/' as any); // Redirect to home if role is not allowed
     }
   }, [user, loading, router, allowedRoles]);
 

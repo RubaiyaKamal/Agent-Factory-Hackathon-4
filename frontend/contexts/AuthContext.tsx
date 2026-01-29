@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUserInfo = async () => {
     try {
       const userData = await apiService.getUserProfile();
-      setUser(userData);
+      setUser(userData as User);
     } catch (error) {
       console.error('Failed to fetch user info:', error);
       localStorage.removeItem('authToken');
@@ -55,10 +55,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await apiService.login({ email, password });
+      const response = await apiService.login({ email, password }) as any;
       localStorage.setItem('authToken', response.token);
-      setUser(response.user);
-      router.push('/dashboard');
+      setUser(response.user as User);
+      router.push('/dashboard' as any);
     } catch (error) {
       console.error('Login failed:', error);
       throw error;
@@ -70,10 +70,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signUp = async (name: string, email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await apiService.register({ name, email, password });
+      const response = await apiService.register({ name, email, password }) as any;
       localStorage.setItem('authToken', response.token);
-      setUser(response.user);
-      router.push('/dashboard');
+      setUser(response.user as User);
+      router.push('/dashboard' as any);
     } catch (error) {
       console.error('Registration failed:', error);
       throw error;
@@ -91,14 +91,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       localStorage.removeItem('authToken');
       clearUser();
-      router.push('/');
+      router.push('/' as any);
       setLoading(false);
     }
   };
 
   const forgotPassword = async (email: string) => {
     try {
-      await apiService.post('/auth/forgot-password', { email });
+      await apiService.forgotPassword(email);
       console.log('Password reset email sent to:', email);
     } catch (error) {
       console.error('Forgot password failed:', error);
@@ -108,7 +108,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const resetPassword = async (token: string, newPassword: string) => {
     try {
-      await apiService.post('/auth/reset-password', { token, newPassword });
+      await apiService.resetPassword(token, newPassword);
       console.log('Password reset successful');
     } catch (error) {
       console.error('Reset password failed:', error);

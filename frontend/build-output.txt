@@ -1,0 +1,24 @@
+
+> course-companion-frontend@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Experiments (use with caution):
+    · typedRoutes
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/login/page.tsx:82:23
+Type error: "/forgot-password" is not an existing route. If it is intentional, please type it explicitly with `as Route`.
+
+[0m [90m 80 |[39m             [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex items-center justify-between"[39m[33m>[39m[0m
+[0m [90m 81 |[39m               [33m<[39m[33mdiv[39m className[33m=[39m[32m"text-sm"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 82 |[39m                 [33m<[39m[33mLink[39m href[33m=[39m[32m"/forgot-password"[39m className[33m=[39m[32m"font-medium text-blue-600 hover:text-blue-500"[39m[33m>[39m[0m
+[0m [90m    |[39m                       [31m[1m^[22m[39m[0m
+[0m [90m 83 |[39m                   [33mForgot[39m your password[33m?[39m[0m
+[0m [90m 84 |[39m                 [33m<[39m[33m/[39m[33mLink[39m[33m>[39m[0m
+[0m [90m 85 |[39m               [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

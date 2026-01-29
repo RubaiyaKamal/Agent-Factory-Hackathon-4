@@ -79,9 +79,9 @@ export default function LoginPage() {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+                <a href="#" className="font-medium text-blue-600 hover:text-blue-500" onClick={(e) => { e.preventDefault(); alert('Password reset feature coming soon!'); }}>
                   Forgot your password?
-                </Link>
+                </a>
               </div>
             </div>
 

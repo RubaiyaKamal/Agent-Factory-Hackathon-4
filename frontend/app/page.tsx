@@ -13,24 +13,24 @@ export default function HomePage() {
       title: 'Learn',
       description: 'Access course materials and learn at your own pace',
       icon: BookOpenIcon,
-      href: '/courses',
+      href: '/courses' as const,
       color: 'from-sky-400 to-blue-500',
     },
     {
       title: 'Practice',
       description: 'Take quizzes and assess your understanding',
       icon: AcademicCapIcon,
-      href: '/quiz',
+      href: '/quiz' as const,
       color: 'from-blue-400 to-indigo-500',
     },
     {
       title: 'Track',
       description: 'Monitor your progress and achievements',
       icon: ChartBarIcon,
-      href: '/dashboard',
+      href: '/dashboard' as const,
       color: 'from-indigo-400 to-purple-500',
     },
-  ];
+  ] as const;
 
   return (
     <div className="min-h-screen bg-sky-100">

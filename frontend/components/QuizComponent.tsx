@@ -68,7 +68,7 @@ export default function QuizComponent({ questions, onComplete }: QuizComponentPr
   };
 
   if (showResults) {
-    const score = selectedAnswers.reduce((acc, answer, index) => {
+    const score = selectedAnswers.reduce((acc: number, answer, index) => {
       return answer === questions[index].correctAnswer ? acc + 1 : acc;
     }, 0);
 

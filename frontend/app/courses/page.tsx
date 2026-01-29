@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
-import { apiClient } from '@/lib/api';
 
 interface Course {
   id: string;
