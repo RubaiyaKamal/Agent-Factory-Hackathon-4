@@ -1,0 +1,364 @@
+name: "Course Companion FTE"
+description: "AI-powered tutor for AI Agent Development course. Learn Claude SDK, MCP Servers, and Agent Skills through interactive lessons, quizzes, and personalized guidance."
+version: "1.0.0"
+author: "Course Companion Team"
+
+# Backend API configuration
+backend_url: "${BACKEND_URL}"  # Set via environment variable
+
+# Authentication configuration
+authentication:
+  type: bearer
+  token_endpoint: /api/auth/login
+  refresh_endpoint: /api/auth/refresh
+
+# API Actions - Connect to backend endpoints
+actions:
+  # ============================================================
+  # Content Delivery Actions
+  # ============================================================
+
+  - name: list_courses
+    description: "List all available courses. Returns course metadata including title, description, difficulty, and chapter count."
+    endpoint: /api/content/courses
+    method: GET
+    parameters: []
+    authentication_required: false
+
+  - name: get_course
+    description: "Get detailed information about a specific course by slug. Includes full chapter list and user's progress if authenticated."
+    endpoint: /api/content/courses/{slug}
+    method: GET
+    parameters:
+      - name: slug
+        type: string
+        required: true
+        description: "Course slug (e.g., 'ai-agent-development')"
+    authentication_required: false
+
+  - name: get_chapter
+    description: "Get a chapter's content with signed R2 URL. Returns chapter metadata and temporary access URL (60-min expiry). Requires authentication. Free users can access first 3 chapters only."
+    endpoint: /api/content/chapters/{id}
+    method: GET
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        description: "Chapter database ID"
+    authentication_required: true
+
+  # ============================================================
+  # Navigation Actions
+  # ============================================================
+
+  - name: get_next_chapter
+    description: "Get the next chapter in sequence. Use this when the student completes a chapter and wants to continue."
+    endpoint: /api/navigation/chapters/{id}/next
+    method: GET
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        description: "Current chapter ID"
+    authentication_required: false
+
+  - name: get_previous_chapter
+    description: "Get the previous chapter in sequence. Use this when the student wants to review earlier material."
+    endpoint: /api/navigation/chapters/{id}/previous
+    method: GET
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        description: "Current chapter ID"
+    authentication_required: false
+
+  - name: get_chapter_context
+    description: "Get navigation context for a chapter (previous, current, next). Useful for showing the student where they are in the course."
+    endpoint: /api/navigation/chapters/{id}/context
+    method: GET
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        description: "Current chapter ID"
+    authentication_required: false
+
+  - name: get_course_structure
+    description: "Get the full course structure with all chapters and the user's progress. Use this to show an overview or roadmap."
+    endpoint: /api/navigation/courses/{id}/structure
+    method: GET
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        description: "Course ID"
+    authentication_required: true
+
+  # ============================================================
+  # Search Actions
+  # ============================================================
+
+  - name: search_content
+    description: "Search course content for specific topics or concepts. Supports keyword, semantic, and hybrid search modes. Use this to help students find information quickly."
+    endpoint: /api/search
+    method: GET
+    parameters:
+      - name: query
+        type: string
+        required: true
+        description: "Search query (minimum 3 characters)"
+      - name: search_type
+        type: string
+        required: false
+        default: "keyword"
+        description: "Search mode: keyword (fast text match), semantic (meaning-based), or hybrid (both)"
+      - name: limit
+        type: integer
+        required: false
+        default: 10
+        description: "Maximum number of results (1-50)"
+      - name: course_id
+        type: integer
+        required: false
+        description: "Optional filter to specific course"
+    authentication_required: false
+
+  # ============================================================
+  # Quiz Actions
+  # ============================================================
+
+  - name: get_chapter_quiz
+    description: "Get the quiz for a chapter. Returns questions WITHOUT correct answers. Use this when the student wants to test their knowledge."
+    endpoint: /api/quizzes/chapters/{chapter_id}/quiz
+    method: GET
+    parameters:
+      - name: chapter_id
+        type: integer
+        required: true
+        description: "Chapter database ID"
+    authentication_required: true
+
+  - name: submit_quiz
+    description: "Submit quiz answers and get grading results. Returns score, pass/fail status, and detailed feedback for each question with correct answers."
+    endpoint: /api/quizzes/{quiz_id}/submit
+    method: POST
+    parameters:
+      - name: quiz_id
+        type: integer
+        required: true
+        description: "Quiz database ID"
+      - name: answers
+        type: object
+        required: true
+        description: "Dictionary mapping question_id to user_answer"
+      - name: time_taken_seconds
+        type: integer
+        required: false
+        description: "Time spent on quiz in seconds"
+    authentication_required: true
+
+  - name: get_quiz_attempts
+    description: "Get user's quiz attempt history. Shows all past attempts with scores and timestamps."
+    endpoint: /api/quizzes/{quiz_id}/attempts
+    method: GET
+    parameters:
+      - name: quiz_id
+        type: integer
+        required: true
+        description: "Quiz database ID"
+    authentication_required: true
+
+  - name: get_quiz_attempt_detail
+    description: "Get detailed results for a specific quiz attempt. Includes all questions, user's answers, and feedback."
+    endpoint: /api/quizzes/{quiz_id}/attempts/{attempt_id}
+    method: GET
+    parameters:
+      - name: quiz_id
+        type: integer
+        required: true
+        description: "Quiz database ID"
+      - name: attempt_id
+        type: integer
+        required: true
+        description: "Attempt database ID"
+    authentication_required: true
+
+  # ============================================================
+  # Progress Tracking Actions
+  # ============================================================
+
+  - name: mark_chapter_complete
+    description: "Mark a chapter as complete and update user's streak. Call this when the student finishes reading a chapter."
+    endpoint: /api/progress/chapters/{chapter_id}/complete
+    method: POST
+    parameters:
+      - name: chapter_id
+        type: integer
+        required: true
+        description: "Chapter database ID"
+      - name: time_spent_seconds
+        type: integer
+        required: false
+        description: "Time spent on chapter in seconds"
+    authentication_required: true
+
+  - name: get_my_progress
+    description: "Get user's overall progress across all courses. Includes completion stats, streak info, and achievements."
+    endpoint: /api/progress/me
+    method: GET
+    parameters: []
+    authentication_required: true
+
+  - name: get_my_streak
+    description: "Get user's learning streak details. Returns current streak, longest streak, and streak status (active/at_risk/broken)."
+    endpoint: /api/progress/streak
+    method: GET
+    parameters: []
+    authentication_required: true
+
+  - name: get_my_stats
+    description: "Get detailed user statistics including quiz performance, total time spent, and account age."
+    endpoint: /api/progress/stats
+    method: GET
+    parameters: []
+    authentication_required: true
+
+  # ============================================================
+  # Pricing & Subscription Actions
+  # ============================================================
+
+  - name: get_pricing_tiers
+    description: "Get all available subscription tiers (Free, Premium, Enterprise) with pricing and features. Use this when the student asks about upgrading."
+    endpoint: /api/pricing/tiers
+    method: GET
+    parameters: []
+    authentication_required: false
+
+  - name: get_my_subscription
+    description: "Get current user's subscription information including tier, billing cycle, and accessible features."
+    endpoint: /api/pricing/subscription
+    method: GET
+    parameters: []
+    authentication_required: true
+
+  - name: upgrade_subscription
+    description: "Upgrade user's subscription tier (mock payment in this version). Use this when the student wants to access premium content."
+    endpoint: /api/pricing/upgrade
+    method: POST
+    parameters:
+      - name: tier
+        type: string
+        required: true
+        description: "Target tier: premium or enterprise"
+      - name: billing_cycle
+        type: string
+        required: false
+        default: "monthly"
+        description: "Billing cycle: monthly or yearly"
+      - name: payment_method_id
+        type: string
+        required: false
+        description: "Payment method ID (mock)"
+    authentication_required: true
+
+# ============================================================
+# Skill Definitions
+# ============================================================
+
+skills:
+  - name: concept-explainer
+    description: "Explains course concepts at various complexity levels to match learner understanding"
+    file: skills/concept-explainer.md
+    triggers:
+      - "explain"
+      - "what is"
+      - "how does"
+      - "tell me about"
+      - "I don't understand"
+      - "clarify"
+
+  - name: quiz-master
+    description: "Guides students through quizzes with encouragement and explanatory feedback"
+    file: skills/quiz-master.md
+    triggers:
+      - "quiz me"
+      - "test me"
+      - "practice"
+      - "assessment"
+      - "check my knowledge"
+      - "quiz"
+
+  - name: socratic-tutor
+    description: "Guides learning through strategic questions rather than direct answers"
+    file: skills/socratic-tutor.md
+    triggers:
+      - "I'm stuck"
+      - "help me understand"
+      - "I don't get it"
+      - "how do I think about this"
+      - "help me figure out"
+
+  - name: progress-motivator
+    description: "Celebrates achievements, maintains motivation, and provides encouraging progress insights"
+    file: skills/progress-motivator.md
+    triggers:
+      - "my progress"
+      - "how am I doing"
+      - "show my stats"
+      - "streak"
+      - "achievements"
+      - "progress"
+
+# ============================================================
+# Configuration
+# ============================================================
+
+settings:
+  default_course: "ai-agent-development"
+  max_retries: 3
+  timeout_seconds: 30
+  cache_ttl_minutes: 15
+
+  # Freemium settings
+  free_tier_chapter_limit: 3
+
+  # Content delivery
+  signed_url_expiry_minutes: 60
+
+  # Quiz settings
+  default_quiz_time_limit: 30  # minutes
+  passing_score: 70  # percentage
+
+  # Streak settings
+  grace_period_hours: 24
+
+# ============================================================
+# Error Handling
+# ============================================================
+
+error_messages:
+  authentication_required: "This feature requires you to log in. Would you like to sign in or create an account?"
+  premium_required: "This content is part of our Premium tier. Would you like to learn more about upgrading your subscription?"
+  not_found: "I couldn't find that resource. Would you like me to help you find something else?"
+  rate_limit: "We're experiencing high demand right now. Please try again in a moment."
+  server_error: "I'm having trouble connecting to the server. Please try again in a moment."
+
+# ============================================================
+# Metadata
+# ============================================================
+
+metadata:
+  category: "Education"
+  tags:
+    - "AI"
+    - "Machine Learning"
+    - "Software Development"
+    - "Claude"
+    - "MCP"
+    - "Agent Skills"
+  language: "en"
+  region: "global"
+  support_email: "support@coursecompanion.dev"
+  privacy_policy_url: "https://coursecompanion.dev/privacy"
+  terms_of_service_url: "https://coursecompanion.dev/terms"

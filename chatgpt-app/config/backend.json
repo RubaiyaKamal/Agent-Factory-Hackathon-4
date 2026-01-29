@@ -1,0 +1,90 @@
+{
+  "api_base_url": "${BACKEND_URL}/api",
+  "auth_method": "bearer",
+  "timeout_seconds": 30,
+  "retry_attempts": 3,
+  "retry_delay_ms": 1000,
+  "retry_backoff_multiplier": 2,
+
+  "endpoints": {
+    "auth": {
+      "login": "/auth/login",
+      "register": "/auth/register",
+      "refresh": "/auth/refresh",
+      "me": "/auth/me"
+    },
+    "content": {
+      "courses": "/content/courses",
+      "course_detail": "/content/courses/{slug}",
+      "chapter": "/content/chapters/{id}"
+    },
+    "navigation": {
+      "next": "/navigation/chapters/{id}/next",
+      "previous": "/navigation/chapters/{id}/previous",
+      "context": "/navigation/chapters/{id}/context",
+      "structure": "/navigation/courses/{id}/structure"
+    },
+    "search": {
+      "search": "/search"
+    },
+    "quizzes": {
+      "get_quiz": "/quizzes/chapters/{chapter_id}/quiz",
+      "submit": "/quizzes/{quiz_id}/submit",
+      "attempts": "/quizzes/{quiz_id}/attempts",
+      "attempt_detail": "/quizzes/{quiz_id}/attempts/{attempt_id}"
+    },
+    "progress": {
+      "mark_complete": "/progress/chapters/{chapter_id}/complete",
+      "my_progress": "/progress/me",
+      "streak": "/progress/streak",
+      "stats": "/progress/stats"
+    },
+    "pricing": {
+      "tiers": "/pricing/tiers",
+      "subscription": "/pricing/subscription",
+      "upgrade": "/pricing/upgrade",
+      "cancel": "/pricing/cancel",
+      "features": "/pricing/features/{tier}"
+    }
+  },
+
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "CourseCompanionFTE-ChatGPTApp/1.0"
+  },
+
+  "error_handling": {
+    "retry_on_status_codes": [408, 429, 500, 502, 503, 504],
+    "timeout_action": "retry",
+    "max_retries_before_failure": 3
+  },
+
+  "cache": {
+    "enabled": true,
+    "ttl_minutes": 15,
+    "cacheable_endpoints": [
+      "/content/courses",
+      "/pricing/tiers"
+    ]
+  },
+
+  "rate_limiting": {
+    "requests_per_minute": 60,
+    "burst_size": 10
+  },
+
+  "features": {
+    "enable_semantic_search": true,
+    "enable_progress_tracking": true,
+    "enable_streak_notifications": true,
+    "enable_premium_upsell": true
+  },
+
+  "constants": {
+    "free_tier_chapter_limit": 3,
+    "signed_url_expiry_minutes": 60,
+    "grace_period_hours": 24,
+    "default_quiz_passing_score": 70
+  }
+}

@@ -1,0 +1,306 @@
+# Course Companion FTE - Git Ignore Rules
+
+# ==============================================================================
+# Environment Variables & Secrets
+# ==============================================================================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+*.key
+*.pem
+secrets/
+credentials.json
+
+# ==============================================================================
+# Python
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ==============================================================================
+# IDEs & Editors
+# ==============================================================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ==============================================================================
+# Node.js (for ChatGPT App / Web App)
+# ==============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# ==============================================================================
+# Next.js (Phase 3 Web App)
+# ==============================================================================
+.next/
+out/
+.vercel
+
+# ==============================================================================
+# Database
+# ==============================================================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# Alembic
+alembic/versions/__pycache__/
+
+# ==============================================================================
+# Logs
+# ==============================================================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==============================================================================
+# OS Files
+# ==============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ==============================================================================
+# Temporary Files
+# ==============================================================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~.nib
+
+# ==============================================================================
+# Docker
+# ==============================================================================
+docker-compose.override.yml
+.dockerignore
+
+# ==============================================================================
+# Cloud & Deployment
+# ==============================================================================
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# AWS
+.aws/
+
+# ==============================================================================
+# Cache & Generated Files
+# ==============================================================================
+cache/
+.cache/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.ruff_cache/
+
+# Embeddings cache (for semantic search)
+cache/embeddings/
+
+# ==============================================================================
+# Testing
+# ==============================================================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ==============================================================================
+# Documentation Build
+# ==============================================================================
+docs/_build/
+docs/.buildinfo
+
+# ==============================================================================
+# Cloudflare R2 / S3 Local Simulation
+# ==============================================================================
+local-storage/
+r2-mock/
+
+# ==============================================================================
+# Monitoring & Profiling
+# ==============================================================================
+*.prof
+*.lprof
+.profiling/
+
+# ==============================================================================
+# Jupyter Notebooks (if used for data analysis)
+# ==============================================================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ==============================================================================
+# Custom Project Artifacts
+# ==============================================================================
+# Exclude uploaded course content (use R2 in production)
+content/courses/*
+!content/courses/.gitkeep
+!content/courses/README.md
+
+# Exclude quiz banks (use R2 or database in production)
+content/quizzes/*
+!content/quizzes/.gitkeep
+!content/quizzes/README.md
+
+# Exclude assets (use R2 in production)
+content/assets/*
+!content/assets/.gitkeep
+
+# ==============================================================================
+# Development & Debugging
+# ==============================================================================
+debug/
+scratch/
+playground/
+
+# ==============================================================================
+# Keep Empty Directories
+# ==============================================================================
+!.gitkeep

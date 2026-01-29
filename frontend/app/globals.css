@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      transparent
+    )
+    rgb(var(--background-end-rgb));
+}
+
+/* Enhanced responsive styles */
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+}
+
+/* Focus styles for accessibility */
+.focus-within\:ring-2:focus-within,
+.focus\:outline-none:focus {
+  @apply focus:outline-[3px] focus:outline-blue-500 focus:outline-offset-2;
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive typography */
+.text-responsive {
+  @apply text-base sm:text-lg md:text-xl;
+}
+
+/* Card hover effects for better interactivity */
+.card-hover {
+  @apply transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Loading animation */
+.loading-spinner {
+  @apply animate-spin rounded-full h-4 w-4 border-b-2 border-white;
+}
