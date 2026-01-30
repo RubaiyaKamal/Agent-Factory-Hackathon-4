@@ -52,7 +52,7 @@ async def register(
 
     # Create new user
     user = User(
-        name=request.name,
+        name=request.name or request.email.split("@")[0],  # Use email prefix if name not provided
         email=request.email,
         hashed_password=hashed_password,
         tier="free",  # Default to free tier

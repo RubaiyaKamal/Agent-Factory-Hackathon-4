@@ -11,7 +11,7 @@ class RegisterRequest(BaseModel):
     """
     Request schema for user registration
     """
-    name: str
+    name: Optional[str] = None
     email: EmailStr
     password: str
     timezone: Optional[str] = "UTC"
