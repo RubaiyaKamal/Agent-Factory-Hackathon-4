@@ -40,7 +40,21 @@ class ApiClient {
           localStorage.removeItem('authToken');
         }
       }
-      throw new Error(`HTTP error! status: ${response.status}`);
+
+      // Try to parse error response for better error messages
+      let errorMessage = `HTTP error! status: ${response.status}`;
+      try {
+        const errorData = await response.json();
+        if (errorData.detail) {
+          errorMessage = errorData.detail;
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } catch (e) {
+        // If parsing fails, use the default error message
+      }
+
+      throw new Error(errorMessage);
     }
 
     // Handle empty responses
@@ -84,83 +98,83 @@ class ApiService {
 
   // Authentication APIs
   async login(credentials: { email: string; password: string }) {
-    return this.apiClient.post('/auth/login', credentials);
+    return this.apiClient.post('/api/auth/login', credentials);
   }
 
   async register(userData: { name: string; email: string; password: string }) {
-    return this.apiClient.post('/auth/register', userData);
+    return this.apiClient.post('/api/auth/register', userData);
   }
 
   async logout() {
-    return this.apiClient.post('/auth/logout');
+    return this.apiClient.post('/api/auth/logout');
   }
 
   async getUserProfile() {
-    return this.apiClient.get('/auth/profile');
+    return this.apiClient.get('/api/auth/me');
   }
 
   async forgotPassword(email: string) {
-    return this.apiClient.post('/auth/forgot-password', { email });
+    return this.apiClient.post('/api/auth/forgot-password', { email });
   }
 
   async resetPassword(token: string, newPassword: string) {
-    return this.apiClient.post('/auth/reset-password', { token, newPassword });
+    return this.apiClient.post('/api/auth/reset-password', { token, newPassword });
   }
 
   // Course APIs
   async getCourses() {
-    return this.apiClient.get('/courses');
+    return this.apiClient.get('/api/courses');
   }
 
   async getCourse(courseId: string) {
-    return this.apiClient.get(`/courses/${courseId}`);
+    return this.apiClient.get(`/api/courses/${courseId}`);
   }
 
   async getCourseContent(courseId: string) {
-    return this.apiClient.get(`/courses/${courseId}/content`);
+    return this.apiClient.get(`/api/courses/${courseId}/content`);
   }
 
   async updateCourseProgress(courseId: string, progress: number) {
-    return this.apiClient.put(`/courses/${courseId}/progress`, { progress });
+    return this.apiClient.put(`/api/courses/${courseId}/progress`, { progress });
   }
 
   // Quiz APIs
   async getQuizzes() {
-    return this.apiClient.get('/quizzes');
+    return this.apiClient.get('/api/quizzes');
   }
 
   async getQuiz(quizId: string) {
-    return this.apiClient.get(`/quizzes/${quizId}`);
+    return this.apiClient.get(`/api/quizzes/${quizId}`);
   }
 
   async submitQuiz(quizId: string, answers: any[]) {
-    return this.apiClient.post(`/quizzes/${quizId}/submit`, { answers });
+    return this.apiClient.post(`/api/quizzes/${quizId}/submit`, { answers });
   }
 
   async getQuizResults(quizId: string) {
-    return this.apiClient.get(`/quizzes/${quizId}/results`);
+    return this.apiClient.get(`/api/quizzes/${quizId}/results`);
   }
 
   // User APIs
   async updateUserProfile(profileData: any) {
-    return this.apiClient.put('/auth/profile', profileData);
+    return this.apiClient.put('/api/auth/me', profileData);
   }
 
   async getUserProgress() {
-    return this.apiClient.get('/users/progress');
+    return this.apiClient.get('/api/users/progress');
   }
 
   async getUserAnalytics() {
-    return this.apiClient.get('/users/analytics');
+    return this.apiClient.get('/api/users/analytics');
   }
 
   // Content APIs
   async getContent(searchQuery: string) {
-    return this.apiClient.get(`/content/search?q=${encodeURIComponent(searchQuery)}`);
+    return this.apiClient.get(`/api/content/search?q=${encodeURIComponent(searchQuery)}`);
   }
 
   async getChapterContent(courseId: string, chapterId: string) {
-    return this.apiClient.get(`/courses/${courseId}/chapters/${chapterId}/content`);
+    return this.apiClient.get(`/api/courses/${courseId}/chapters/${chapterId}/content`);
   }
 }
 

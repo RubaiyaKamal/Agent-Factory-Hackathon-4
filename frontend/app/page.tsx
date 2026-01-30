@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Header from '@/components/Header';
 import { BookOpenIcon, AcademicCapIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 
 export default function HomePage() {
@@ -34,8 +33,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-sky-100">
-      <Header />
-
       <main id="main-content" className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16">

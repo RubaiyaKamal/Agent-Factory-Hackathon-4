@@ -59,12 +59,12 @@ export default function ProfilePage() {
               <div className="md:w-1/3">
                 <div className="bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 border-2 border-sky-300 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg">
                   <div className="text-4xl font-bold text-sky-600">
-                    {user.name.charAt(0).toUpperCase()}
+                    {user.name ? user.name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
                   </div>
                 </div>
 
                 <div className="mt-4 text-center bg-gradient-to-br from-sky-50 to-purple-50 p-4 rounded-lg border border-sky-200">
-                  <p className="text-lg font-bold bg-gradient-to-r from-sky-600 to-purple-600 bg-clip-text text-transparent">{user.name}</p>
+                  <p className="text-lg font-bold bg-gradient-to-r from-sky-600 to-purple-600 bg-clip-text text-transparent">{user.name || user.email.split('@')[0]}</p>
                   <p className="text-gray-600 text-sm mt-1">{user.email}</p>
 
                   <div className="mt-4">

@@ -11,6 +11,7 @@ class RegisterRequest(BaseModel):
     """
     Request schema for user registration
     """
+    name: str
     email: EmailStr
     password: str
     timezone: Optional[str] = "UTC"
@@ -18,6 +19,7 @@ class RegisterRequest(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
+                "name": "John Doe",
                 "email": "student@example.com",
                 "password": "securePassword123",
                 "timezone": "America/New_York"
@@ -66,6 +68,7 @@ class UserResponse(BaseModel):
     Response schema for user information
     """
     id: int
+    name: str
     email: EmailStr
     tier: str
     timezone: str
@@ -76,6 +79,7 @@ class UserResponse(BaseModel):
         json_schema_extra = {
             "example": {
                 "id": 1,
+                "name": "John Doe",
                 "email": "student@example.com",
                 "tier": "free",
                 "timezone": "UTC",

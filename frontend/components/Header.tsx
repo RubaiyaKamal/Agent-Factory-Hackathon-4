@@ -71,7 +71,7 @@ export default function Header() {
             {user ? (
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-gray-700">
-                  Welcome, {user.name}
+                  Welcome, {user.name || user.email.split('@')[0]}
                 </span>
 
                 <Button
@@ -167,7 +167,7 @@ export default function Header() {
                       <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium text-gray-800">{user.name}</div>
+                      <div className="text-base font-medium text-gray-800">{user.name || user.email.split('@')[0]}</div>
                       <div className="text-sm font-medium text-gray-500">{user.email}</div>
                     </div>
                   </div>

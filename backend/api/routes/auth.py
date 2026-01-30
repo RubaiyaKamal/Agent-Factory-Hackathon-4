@@ -18,20 +18,20 @@ from backend.api.middleware.auth import get_current_user
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
 
-@router.post("/register", response_model=UserResponse)
+@router.post("/register")
 async def register(
     request: RegisterRequest,
     db: AsyncSession = Depends(get_db_session)
-) -> UserResponse:
+) -> Dict:
     """
-    Register a new user account
+    Register a new user account and return authentication token
 
     Args:
         request: Registration request containing email and password
         db: Database session
 
     Returns:
-        UserResponse with basic user information (excluding password)
+        Dictionary with token and user information for automatic login
 
     Raises:
         HTTPException: If email is already taken
@@ -52,6 +52,7 @@ async def register(
 
     # Create new user
     user = User(
+        name=request.name,
         email=request.email,
         hashed_password=hashed_password,
         tier="free",  # Default to free tier
@@ -62,14 +63,23 @@ async def register(
     await db.commit()
     await db.refresh(user)
 
-    return UserResponse(
-        id=user.id,
-        email=user.email,
-        tier=user.tier,
-        timezone=user.timezone,
-        created_at=user.created_at,
-        is_active=user.is_active
+    # Create access token for automatic login
+    access_token_expires = timedelta(minutes=get_settings().ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": str(user.id)},
+        expires_delta=access_token_expires
     )
+
+    # Return token and user info for automatic login after registration
+    return {
+        "token": access_token,
+        "user": {
+            "id": str(user.id),
+            "name": user.name,
+            "email": user.email,
+            "tier": user.tier
+        }
+    }
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -218,6 +228,7 @@ async def get_user_profile(
     """
     return UserResponse(
         id=current_user.id,
+        name=current_user.name,
         email=current_user.email,
         tier=current_user.tier,
         timezone=current_user.timezone,
