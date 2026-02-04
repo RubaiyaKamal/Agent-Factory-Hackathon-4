@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Loader2, DollarSign, Zap } from 'lucide-react';
+import { Send, Loader2, DollarSign, Zap, RefreshCw } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -42,6 +42,16 @@ export default function AIChat({ context, skill }: AIChatProps) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const resetChat = () => {
+    setMessages([]);
+    setInput('');
+    setStats({
+      totalTokens: 0,
+      totalCost: 0,
+      messagesCount: 0,
+    });
+  };
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -123,7 +133,15 @@ export default function AIChat({ context, skill }: AIChatProps) {
             </h2>
             <p className="text-sm text-gray-600">Powered by GPT-4o-mini</p>
           </div>
-          <div className="flex gap-4 text-sm">
+          <div className="flex gap-3 text-sm items-center">
+            <button
+              onClick={resetChat}
+              className="flex items-center gap-1 bg-white px-3 py-1.5 rounded-full hover:bg-gray-100 transition-colors"
+              title="Start new conversation"
+            >
+              <RefreshCw className="w-4 h-4 text-blue-600" />
+              <span className="text-gray-700 font-medium">New Chat</span>
+            </button>
             <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-full">
               <Zap className="w-4 h-4 text-yellow-500" />
               <span className="font-mono">{stats.totalTokens.toLocaleString()}</span>
