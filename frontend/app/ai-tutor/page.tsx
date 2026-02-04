@@ -1,12 +1,51 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AIChat from '@/components/AIChat';
-import { BookOpen, MessageSquare, Target, TrendingUp } from 'lucide-react';
+import { BookOpen, MessageSquare, Target, TrendingUp, Loader2 } from 'lucide-react';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 
 export default function AITutorPage() {
   const [selectedSkill, setSelectedSkill] = useState<string>('concept-explainer');
   const [studentLevel, setStudentLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('intermediate');
+  const [courses, setCourses] = useState<any[]>([]);
+  const [userProgress, setUserProgress] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch courses and user progress on mount
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch courses
+        const coursesRes = await fetch(`${API_URL}/content/courses`);
+        if (coursesRes.ok) {
+          const coursesData = await coursesRes.json();
+          setCourses(coursesData.courses || []);
+        }
+
+        // Fetch user progress (requires auth - will fail gracefully if not logged in)
+        try {
+          const progressRes = await fetch(`${API_URL}/progress/me`, {
+            credentials: 'include',
+          });
+          if (progressRes.ok) {
+            const progressData = await progressRes.json();
+            setUserProgress(progressData);
+          }
+        } catch (err) {
+          // User not logged in - that's okay
+          console.log('Progress fetch skipped (not logged in)');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const skills = [
     {
@@ -39,11 +78,33 @@ export default function AITutorPage() {
     },
   ];
 
+  // Build dynamic context from real data
+  const courseInfo = courses.length > 0
+    ? courses.map(c => `${c.title}: ${c.description}`).join('; ')
+    : 'AI Agent Development Course - Claude SDK, MCP (Model Context Protocol), and Agent Skills';
+
   const context = {
-    courseContent: 'AI Agent Development Course - Claude SDK, MCP Servers, Agent Skills',
-    currentChapter: 'Introduction to MCP',
+    courseContent: courseInfo,
+    currentChapter: userProgress?.current_chapter || 'Introduction to MCP (Model Context Protocol)',
     studentLevel,
+    userProgress: userProgress ? {
+      completedChapters: userProgress.completed_chapters || 0,
+      totalChapters: userProgress.total_chapters || 0,
+      currentStreak: userProgress.current_streak || 0,
+    } : null,
+    apiUrl: API_URL, // Pass API URL so AI can make calls
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
+          <p className="text-gray-600">Loading AI Tutor...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
@@ -52,6 +113,12 @@ export default function AITutorPage() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">AI Tutor</h1>
           <p className="text-gray-600">Your personalized AI learning companion powered by GPT-4o-mini</p>
+          {userProgress && (
+            <p className="text-sm text-gray-500 mt-1">
+              Progress: {userProgress.completed_chapters}/{userProgress.total_chapters} chapters •
+              Streak: {userProgress.current_streak} days
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

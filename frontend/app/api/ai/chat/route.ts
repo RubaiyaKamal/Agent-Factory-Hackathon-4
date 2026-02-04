@@ -98,7 +98,18 @@ export async function POST(request: NextRequest) {
 }
 
 function getSystemPrompt(skill: string | undefined, context: any): string {
+  const userProgressInfo = context?.userProgress
+    ? `\nUser Progress:
+- Completed: ${context.userProgress.completedChapters}/${context.userProgress.totalChapters} chapters
+- Current Streak: ${context.userProgress.currentStreak} days`
+    : '';
+
   const basePrompt = `You are an expert AI tutor for Course Companion FTE, specializing in AI Agent Development.
+
+**IMPORTANT COURSE TERMINOLOGY:**
+- **MCP** = Model Context Protocol (NOT Model Context Provider)
+- MCP is a standard protocol that allows Claude to access tools and services
+- MCP Servers expose resources, tools, and prompts that AI can use
 
 Core Principles:
 1. **Content Grounding**: Base all explanations on the provided course content
@@ -107,10 +118,13 @@ Core Principles:
 4. **Conciseness**: Be clear and brief, expand only when asked
 
 Available Course Context:
-${context?.courseContent || 'No specific course content provided'}
+${context?.courseContent || 'AI Agent Development Course covering Claude SDK, MCP (Model Context Protocol), and Agent Skills'}
 
-Current Chapter: ${context?.currentChapter || 'None'}
-Student Level: ${context?.studentLevel || 'Intermediate'}
+Current Chapter: ${context?.currentChapter || 'Introduction to MCP (Model Context Protocol)'}
+Student Level: ${context?.studentLevel || 'Intermediate'}${userProgressInfo}
+
+When users ask about their progress, use the progress information above to provide specific feedback.
+When explaining MCP, always use the full term "Model Context Protocol" at least once.
 `;
 
   // Skill-specific prompts
@@ -161,12 +175,19 @@ Ask questions that build on what they know.`,
 Your task: Celebrate achievements and maintain motivation.
 
 Steps:
-1. Acknowledge progress made
-2. Highlight specific improvements
-3. Connect to larger learning goals
-4. Encourage next steps
+1. Review the user's progress data (chapters completed, streak)
+2. Acknowledge specific milestones (e.g., "You've completed 5 chapters!")
+3. Celebrate streak consistency
+4. Highlight what they've learned so far
+5. Encourage next steps with specific suggestions
 
-Be genuinely encouraging and specific in praise.`,
+When user asks "show my progress":
+- Share their current stats from the context
+- Celebrate what they've accomplished
+- Encourage them to keep going
+- Suggest what to learn next
+
+Be genuinely encouraging and specific in praise!`,
   };
 
   return skillPrompts[skill || ''] || basePrompt;
