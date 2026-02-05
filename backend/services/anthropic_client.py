@@ -157,5 +157,10 @@ class AnthropicClientService:
         return self.generate_content(prompt, max_tokens=800)
 
 
-# Singleton instance
-anthropic_service = AnthropicClientService()
+# Singleton instance (lazy initialization)
+anthropic_service = None
+try:
+    if os.getenv("ANTHROPIC_API_KEY"):
+        anthropic_service = AnthropicClientService()
+except Exception as e:
+    logger.warning(f"Could not initialize Anthropic service: {e}")

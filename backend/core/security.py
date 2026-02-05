@@ -110,6 +110,6 @@ def decode_token(token: str) -> Optional[dict]:
     except jwt.ExpiredSignatureError:
         # Token has expired
         return None
-    except jwt.JWTError:
+    except (jwt.DecodeError, jwt.InvalidTokenError, Exception):
         # Invalid token
         return None

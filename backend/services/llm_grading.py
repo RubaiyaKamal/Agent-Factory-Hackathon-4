@@ -5,7 +5,7 @@ This module provides functionality for grading free-form assessment answers
 using LLM analysis with detailed feedback.
 """
 
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from .anthropic_client import AnthropicClientService, anthropic_service
 from .token_tracker import TokenUsageTracker, TokenUsageCreate
 from .premium_access import PremiumFeatureAccess, FeatureType

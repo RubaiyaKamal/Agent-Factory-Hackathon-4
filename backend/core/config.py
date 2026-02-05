@@ -213,7 +213,7 @@ class Settings(BaseSettings):
             # In Phase 2+, we need to ensure required keys are set
             if not getattr(self, 'ANTHROPIC_API_KEY', ""):
                 # Only warn for now - can be configured later
-                print("⚠️  WARNING: ANTHROPIC_API_KEY is not set. Phase 2 features will not work without it.")
+                print("WARNING: ANTHROPIC_API_KEY is not set. Phase 2 features will not work without it.")
 
 
 @lru_cache
