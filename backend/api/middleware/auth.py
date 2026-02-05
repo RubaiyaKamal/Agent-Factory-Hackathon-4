@@ -135,21 +135,14 @@ async def get_current_user_optional(
     # Decode the token
     payload = decode_token(token)
     if payload is None:
-        # Token is provided but invalid
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        # Token is provided but invalid - treat as unauthenticated for optional endpoints
+        return None
 
     # Extract user ID from token
     user_id: Optional[str] = payload.get("sub")
     if user_id is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token payload",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        # Invalid token payload - treat as unauthenticated for optional endpoints
+        return None
 
     # Query user from database
     try:
